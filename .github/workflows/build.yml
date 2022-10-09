@@ -1,0 +1,31 @@
+name: Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
+          cache: 'pip'
+
+      - name: Run a one-line script
+        run: pip install meson ninja
+
+      - name: Run a multi-line script
+        run: |
+          meson bin --buildtype release
+          meson compile -C bin
