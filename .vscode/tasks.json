@@ -5,13 +5,16 @@
 			"label": "Build",
 			"type": "shell",
 			"windows": {
-				// TODO: Better windows version
-				"command": "cls && meson setup ${config:mesonbuild.buildFolder} --buildtype ${command:cpptools.activeConfigName} && meson compile -C ${config:mesonbuild.buildFolder}"
+                "command": [
+                    ".\\.vscode\\scripts\\build_windows.bat ${config:mesonbuild.buildFolder} ${command:cpptools.activeConfigName}"
+                ]
 			},
-			"command": [
-                "chmod +x ./.vscode/scripts/build_linux.sh;",
-                "./.vscode/scripts/build_linux.sh ${config:mesonbuild.buildFolder} ${command:cpptools.activeConfigName}"
-			],
+            "linux": {
+                "command": [
+                    "chmod +x ./.vscode/scripts/build_linux.sh;",
+                    "./.vscode/scripts/build_linux.sh ${config:mesonbuild.buildFolder} ${command:cpptools.activeConfigName}"
+                ],
+            },
 			"problemMatcher": ["$meson-gcc"],
 			"group": "build",
 		}
