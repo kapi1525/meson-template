@@ -1,22 +1,14 @@
 {
 	"version": "2.0.0",
 	"tasks": [
-		{
-			"label": "Build",
-			"type": "shell",
-			"windows": {
-                "command": [
-                    ".\\.vscode\\scripts\\build_windows.bat ${config:mesonbuild.buildFolder} ${command:cpptools.activeConfigName}"
-                ]
-			},
-            "linux": {
-                "command": [
-                    "chmod +x ./.vscode/scripts/build_linux.sh;",
-                    "./.vscode/scripts/build_linux.sh ${config:mesonbuild.buildFolder} ${command:cpptools.activeConfigName}"
-                ],
-            },
-			"problemMatcher": ["$meson-gcc"],
-			"group": "build",
-		}
-	]
+        {
+            "type": "meson",
+            "mode": "build",
+            "problemMatcher": [
+                "$meson-gcc"
+            ],
+            "group": "build",
+            "label": "Meson: Build all targets"
+        }
+    ]
 }
