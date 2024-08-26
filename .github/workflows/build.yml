@@ -49,6 +49,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: template-${{ github.ref }}-${{ runner.os }}
+          name: template-${{ runner.os }}
           path: bin/${{ matrix.executable }}
           if-no-files-found: error
