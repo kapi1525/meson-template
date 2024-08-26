@@ -22,7 +22,8 @@ jobs:
         with:
           submodules: true
 
-      # - uses: actions/cache@v4
+      # - name: Cache subprojects
+      #   uses: actions/cache@v4
       #   with:
       #     path: subprojects/packagecache/
       #     key: ${{ hashFiles('subprojects/*.wrap') }}
@@ -49,5 +50,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: template-${{ github.ref }}-${{ runner.os }}
-          path: ${{ matrix.executable }}
+          path: bin/${{ matrix.executable }}
           if-no-files-found: error
