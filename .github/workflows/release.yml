@@ -10,9 +10,9 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            executable: template.exe
+            files: template.exe
           - os: ubuntu-latest
-            executable: template
+            files: template
 
     runs-on: ${{ matrix.os }}
 
@@ -41,7 +41,7 @@ jobs:
         run: meson compile -C bin
 
       - name: Create zip
-        run: 7za a "template-${{ github.ref_name }}-${{ runner.os }}.zip" bin/${{ matrix.executable }}
+        run: 7z a "template-${{ github.ref_name }}-${{ runner.os }}.zip" "bin/${{ matrix.files }}"
 
       - name: Upload release
         uses: AButler/upload-release-assets@v3.0

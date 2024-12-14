@@ -2,7 +2,8 @@ name: Build
 
 on:
   push:
-  workflow_dispatch:
+    branches:
+      - '*'     # dont build for tags
 
 jobs:
   build:
@@ -10,14 +11,14 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            executable: template.exe
+            files: template.exe
           - os: ubuntu-latest
-            executable: template
+            files: template
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v4
         with:
           submodules: true
@@ -51,5 +52,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: template-${{ runner.os }}
-          path: bin/${{ matrix.executable }}
+          path: bin/${{ matrix.files }}
           if-no-files-found: error
