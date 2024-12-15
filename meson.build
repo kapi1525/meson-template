@@ -16,4 +16,5 @@ template = executable(
     'template',
     'src/main.cpp',
     dependencies: deps,
+    install: true,
 )

@@ -8,11 +8,7 @@ jobs:
   build:
     strategy:
       matrix:
-        include:
-          - os: windows-latest
-            files: template.exe
-          - os: ubuntu-latest
-            files: template
+        os: [windows-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -38,11 +34,11 @@ jobs:
         run: meson setup bin --buildtype release
 
       - name: Compile
-        run: meson compile -C bin
+        run: meson install -C bin --destdir ../out
 
       - name: Create zip
-        working-directory: bin
-        run: 7z a "../template-${{ github.ref_name }}-${{ runner.os }}.zip" "${{ matrix.files }}"
+        working-directory: out
+        run: 7z a "../template-${{ github.ref_name }}-${{ runner.os }}.zip" "*"
 
       - name: Upload release
         uses: AButler/upload-release-assets@v3.0

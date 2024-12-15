@@ -9,11 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        include:
-          - os: windows-latest
-            files: template.exe
-          - os: ubuntu-latest
-            files: template
+        os: [windows-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -46,11 +42,11 @@ jobs:
         run: meson setup bin --buildtype release
 
       - name: Compile
-        run: meson compile -C bin
+        run: meson install -C bin --destdir ../out
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: template-${{ runner.os }}
-          path: bin/${{ matrix.files }}
+          path: out/*
           if-no-files-found: error
